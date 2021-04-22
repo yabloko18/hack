@@ -1,0 +1,123 @@
+// Reset
+*{
+  outline: none;
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+* {
+  scroll-behavior: unset !important;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ul[class], ol[class] {
+  padding: 0;
+}
+li {
+  margin: 0;
+  padding: 0;
+}
+body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquote, dl, dd {
+  margin: 0;
+}
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+body > * {
+  overflow: hidden;
+}
+ul[class], ol[class] {
+  list-style: none;
+}
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+article > * + * {
+  margin-top: 1em;
+}
+input, button, textarea, select {
+  font: inherit;
+}
+a {
+  text-decoration: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+// UI
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: #2E87E6;
+  border-radius: 8px;
+  color: #F6F6F6;
+  font-size: 18px;
+  line-height: 145%;
+  outline: none;
+  border: none;
+  padding: 10px 28px;
+  transition: .1s linear all;
+  @media (max-width: 998px) {
+    padding: 4px 15px;
+    width: auto;
+    font-size: 16px;
+  }
+  &:hover {
+    color: #F6F6F6;
+    background-color: #498def;
+  }
+}
+h1 {
+  font-weight: 600;
+  font-size: 46px;
+  line-height: 145%;
+  color: #1F1F1F;
+  @media (max-width: 998px) {
+    font-size: 20px;
+  }
+}
+small, .small {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 145%;
+  color: #A6A6AA;
+  @media (max-width: 998px) {
+    font-size: 10px;
+  }
+}
+//
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body, html {
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+#app {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+main.content {
+  margin-top: 70px;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow: hidden;
+}
