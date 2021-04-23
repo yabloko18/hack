@@ -4,9 +4,11 @@ import router from './router'
 import store from './store'
 import TextareaAutosize from 'vue-textarea-autosize'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import Vuelidate from 'vuelidate'
 
 Vue.config.productionTip = false
 Vue.use(TextareaAutosize)
+Vue.use(Vuelidate)
 
 new Vue({
   router,
