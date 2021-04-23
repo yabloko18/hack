@@ -1,28 +1,30 @@
 <template>
-  <main class="content">
-    <div class="search-body d-flex flex-column align-items-center justify-content-end">
+  <div class="app-body">
+    <main class="content">
+      <div class="search-body d-flex flex-column align-items-center justify-content-end">
         <div class="text-bottom">
           <router-link :to="{ name: 'Home' }" class="button">Остановить поиск</router-link>
-          <div class="text-bottom">Все будте хорошо, не переживайте</div>
+          <div class="text-bottom">Все будет хорошо, не переживайте</div>
         </div>
-    </div>
-    <div class="animation">
-      <div class="circle-text">Идет поиск...</div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-    </div>
-  </main>
+      </div>
+      <div class="animation">
+        <div class="circle-text">Идет поиск...</div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+    </main>
+  </div>
 </template>
 
 <script>
+
 export default {
   name: 'Search'
 }
 </script>
-
-<style scoped lang="scss">
+<style lang="scss" scoped>
 main {
   margin: 0 !important;
 }

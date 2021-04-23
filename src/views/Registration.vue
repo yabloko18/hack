@@ -3,8 +3,9 @@
     <AppHeader/>
 
     <main class="content">
-      <h1>О нас</h1>
+      <h1>Регистрация</h1>
     </main>
+
     <AppFooter/>
   </div>
 </template>
@@ -14,7 +15,7 @@ import AppHeader from "@/components/AppHeader";
 import AppFooter from "@/components/AppFooter";
 
 export default {
-  name: 'About',
+  name: 'Registration',
   components: {
     AppHeader,
     AppFooter

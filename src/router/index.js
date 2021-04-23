@@ -1,5 +1,8 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+
+Vue.use(VueRouter)
 
 const routes = [
   {
@@ -26,16 +29,21 @@ const routes = [
     path: '/chat',
     name: 'Chat',
     component: () => import(/* webpackChunkName: "about" */ '../views/Chat.vue')
+  },
+  {
+    path: '/psychology',
+    name: 'Psychology',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Psychology.vue')
+  },
+  {
+    path: '/registration',
+    name: 'Registration',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Registration.vue')
   }
 ]
 
-const router = createRouter({
-  history: createWebHashHistory(),
+const router = new VueRouter({
   routes
-})
-
-router.beforeEach(() => {
-  window.scroll(0, 0)
 })
 
 export default router

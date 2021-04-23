@@ -1,12 +1,13 @@
 <template>
   <header class="header">
-    <div class="container">
+    <div class="container header-container">
       <nav class="d-flex justify-content-between align-items-center header-line">
         <router-link :to="{ name: 'Home' }" class="logo">Wisdom</router-link>
         <ul class="d-none d-lg-flex pc-list">
           <li><router-link :to="{ name: 'Chat' }">Чат (для демонстрации)</router-link></li>
           <li><router-link :to="{ name: 'About' }">О нас</router-link></li>
           <li><router-link :to="{ name: 'Price' }">Цены</router-link></li>
+          <li><router-link :to="{ name: 'Psychology' }">Для психологов</router-link></li>
         </ul>
         <div class="d-flex d-lg-none align-items-center justify-content-end">
           <router-link :to="{ name: 'Search' }" class="button">Найти помощь</router-link>
@@ -14,18 +15,19 @@
         </div>
       </nav>
     </div>
-  </header>
-  <transition name="fade">
-    <div class="header-mob" v-show="show">
-      <div class="container">
-        <ul>
-          <li><router-link :to="{ name: 'Chat' }">Чат (для демонстрации)</router-link></li>
-          <li><router-link :to="{ name: 'About' }">О нас</router-link></li>
-          <li><router-link :to="{ name: 'Price' }">Цены</router-link></li>
-        </ul>
+    <transition name="fade">
+      <div class="header-mob" v-show="show">
+        <div class="container">
+          <ul>
+            <li><router-link :to="{ name: 'Chat' }">Чат (для демонстрации)</router-link></li>
+            <li><router-link :to="{ name: 'About' }">О нас</router-link></li>
+            <li><router-link :to="{ name: 'Price' }">Цены</router-link></li>
+            <li><router-link :to="{ name: 'Psychology' }">Для психологов</router-link></li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </header>
 </template>
 
 <script>
@@ -48,7 +50,11 @@ header {
   width: 100%;
   border-bottom: 1px solid #A6A6AA;
   background-color: #fff;
-  z-index: 10;
+  z-index: 11;
+  .header-container {
+    z-index: 10;
+    position: relative;
+  }
   .header-line {
     position: relative;
     overflow: hidden;
@@ -107,13 +113,6 @@ header {
     }
   }
 }
-.logo {
-  font-weight: 800;
-  font-size: 46px;
-  line-height: 145%;
-  color: #2E87E6;
-  text-transform: uppercase;
-}
 .burger {
   position: relative;
   width: 24px;
@@ -168,7 +167,7 @@ header {
   .header-mob {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: rgba(255,255,255,0.7);
     backdrop-filter: blur(4px);
     z-index: 9;
@@ -219,11 +218,6 @@ header {
   }
   .fade-leave-active {
     animation: anim-2 .2s reverse;
-  }
-}
-@media (max-width: 576px) {
-  .logo {
-    font-size: 18px;
   }
 }
 </style>

@@ -1,16 +1,17 @@
 <template>
-  <AppHeader/>
-  <main class="content">
-    <div class="container">
+  <div class="app-body">
+    <AppHeader/>
+
+    <main class="content">
       <h1>Цены</h1>
-    </div>
-  </main>
-  <AppFooter/>
+    </main>
+    <AppFooter/>
+  </div>
 </template>
 
 <script>
-import AppHeader from '@/components/AppHeader'
-import AppFooter from '@/components/AppFooter'
+import AppHeader from "@/components/AppHeader";
+import AppFooter from "@/components/AppFooter";
 
 export default {
   name: 'Price',
@@ -20,7 +21,6 @@ export default {
   }
 }
 </script>
-
-<style scoped>
+<style lang="scss" scoped>
 
 </style>
