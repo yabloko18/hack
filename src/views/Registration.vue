@@ -5,18 +5,30 @@
     <main class="content">
       <section class="registration">
         <div class="container">
-          <div class="row">
-            <div class="col-6">
+          <div class="row justify-content-center">
+            <div class="col-12 filter">
+              <form>
+                <div>
+                  <input type="radio" id="reg" name="filter" checked value="true" v-model="filterInput">
+                  <label for="reg">Регистрация</label>
+                </div>
+                <div>
+                  <input type="radio" id="log" name="filter" value="" v-model="filterInput">
+                  <label for="log">Авторизация</label>
+                </div>
+              </form>
+            </div>
+            <div class="col-12 col-lg-6" v-if="filterInput">
               <h2>Регистрация</h2>
               <form v-on:submit.prevent="onSubmit">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Email address</label>
+                  <label for="exampleInputEmail1">Email адрес</label>
                   <input
                     type="email"
                     class="form-control"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
-                    placeholder="Enter email"
+                    placeholder="Введите email"
                     :class="{'is-invalid': $v.registerUser.email.$error}"
                     @blur="$v.registerUser.email.$touch()"
                     v-model="registerUser.email">
@@ -28,12 +40,12 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Password</label>
+                  <label for="exampleInputPassword1">Пароль</label>
                   <input
                     type="password"
                     class="form-control"
                     id="exampleInputPassword1"
-                    placeholder="Password"
+                    placeholder="Введите пароль"
                     :class="{'is-invalid': $v.registerUser.password.$error}"
                     @blur="$v.registerUser.password.$touch()"
                     v-model="registerUser.password">
@@ -45,12 +57,12 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputFirstName1">First name</label>
+                  <label for="exampleInputFirstName1">Имя</label>
                   <input
                     type="text"
                     class="form-control"
                     id="exampleInputFirstName1"
-                    placeholder="First name"
+                    placeholder="Введите ваше имя"
                     :class="{'is-invalid': $v.registerUser.firstName.$error}"
                     @blur="$v.registerUser.firstName.$touch()"
                     v-model="registerUser.firstName">
@@ -65,12 +77,12 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputLastName1">Last name</label>
+                  <label for="exampleInputLastName1">Фамилия</label>
                   <input
                     type="text"
                     class="form-control"
                     id="exampleInputLastName1"
-                    placeholder="Last name"
+                    placeholder="Введите вашу фамилию"
                     :class="{'is-invalid': $v.registerUser.lastName.$error}"
                     @blur="$v.registerUser.lastName.$touch()"
                     v-model="registerUser.lastName">
@@ -85,12 +97,12 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputNumber1">Number</label>
+                  <label for="exampleInputNumber1">Номер мобильного телефона</label>
                   <input
                     type="text"
                     class="form-control"
                     id="exampleInputNumber1"
-                    placeholder="Number"
+                    placeholder="Введите номер мобильного телефона"
                     :class="{'is-invalid': $v.registerUser.number.$error}"
                     @blur="$v.registerUser.number.$touch()"
                     v-model="registerUser.number">
@@ -102,12 +114,12 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputInn1">inn</label>
+                  <label for="exampleInputInn1">ИНН</label>
                   <input
                     type="text"
                     class="form-control"
                     id="exampleInputInn1"
-                    placeholder="inn"
+                    placeholder="Введдите ИНН"
                     :class="{'is-invalid': $v.registerUser.inn.$error}"
                     @blur="$v.registerUser.inn.$touch()"
                     v-model="registerUser.inn">
@@ -122,7 +134,7 @@
                   :disabled="disabledButton"
                   type="submit"
                   class="btn btn-primary">
-                  Submit
+                  Отправить
                 </button>
                 <div class="modal-window" v-if="this.registerAccept">
                   Вы успешно зарегистрировались
@@ -131,17 +143,17 @@
                 <div class="modal-window__bg" v-if="this.registerAccept"></div>
               </form>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-lg-6" v-else>
               <h2>Авторизация</h2>
               <form v-on:submit.prevent="onLogin">
                 <div class="form-group">
-                  <label for="exampleInputEmail2">Email address</label>
+                  <label for="exampleInputEmail2">Email адрес</label>
                   <input
                     type="email"
                     class="form-control"
                     id="exampleInputEmail2"
                     aria-describedby="emailHelp"
-                    placeholder="Enter email"
+                    placeholder="Введите email"
                     :class="{'is-invalid': $v.loginUser.email.$error}"
                     @blur="$v.loginUser.email.$touch()"
                     v-model="loginUser.email">
@@ -153,12 +165,12 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword2">Password</label>
+                  <label for="exampleInputPassword2">Пароль</label>
                   <input
                     type="password"
                     class="form-control"
                     id="exampleInputPassword2"
-                    placeholder="Password"
+                    placeholder="Введите пароль"
                     :class="{'is-invalid': $v.loginUser.password.$error}"
                     @blur="$v.loginUser.password.$touch()"
                     v-model="loginUser.password">
@@ -170,7 +182,7 @@
                   :disabled="disabledLogin"
                   type="submit"
                   class="btn btn-primary">
-                  Submit
+                  Отправить
                 </button>
               </form>
             </div>
@@ -226,7 +238,8 @@ export default {
         email: '',
         password: ''
       },
-      loginAccepted: false
+      loginAccepted: false,
+      filterInput: true
     }
   },
   computed: {
@@ -310,11 +323,37 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.filter {
+  margin-bottom: 40px;
+  form {
+    display: flex;
+    justify-content: center;
+  }
+  input {
+    display: none;
+    &:checked+label {
+      background-color: #2E87E6;
+      color: #fff;
+    }
+  }
+  label {
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: .3s linear all;
+    margin-right: 20px;
+  }
+}
 .form-group {
   margin-bottom: 20px;
   label {
     margin-bottom: 10px;
   }
+}
+h2 {
+  margin-bottom: 40px;
 }
 .modal-window {
   position: fixed;

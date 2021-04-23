@@ -5,6 +5,7 @@
         <router-link :to="{ name: 'Home' }" class="logo">Wisdom</router-link>
         <ul class="d-none d-lg-flex pc-list">
           <li><router-link :to="{ name: 'Chat' }">Чат (для демонстрации)</router-link></li>
+          <li><router-link :to="{ name: 'PsychologyUser' }">Кабинет психолога (для демонстрации)</router-link></li>
           <li><router-link :to="{ name: 'About' }">О нас</router-link></li>
           <li><router-link :to="{ name: 'Price' }">Цены</router-link></li>
           <li><router-link :to="{ name: 'Psychology' }">Для психологов</router-link></li>
@@ -20,6 +21,7 @@
         <div class="container">
           <ul>
             <li><router-link :to="{ name: 'Chat' }">Чат (для демонстрации)</router-link></li>
+            <li><router-link :to="{ name: 'PsychologyUser' }">Кабинет психолога (для демонстрации)</router-link></li>
             <li><router-link :to="{ name: 'About' }">О нас</router-link></li>
             <li><router-link :to="{ name: 'Price' }">Цены</router-link></li>
             <li><router-link :to="{ name: 'Psychology' }">Для психологов</router-link></li>
