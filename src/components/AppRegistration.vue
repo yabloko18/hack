@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 col-lg-6">
     <h2>Регистрация</h2>
-    <form v-on:submit.prevent="onSubmit">
+    <form @submit.prevent="onSubmit">
       <div class="form-group">
         <label for="exampleInputEmail1">Email адрес</label>
         <input
@@ -11,8 +11,8 @@
           aria-describedby="emailHelp"
           placeholder="Введите email"
           :class="{'is-invalid': $v.registerUser.email.$error}"
-          @blur="$v.registerUser.email.$touch()"
-          v-model="registerUser.email">
+          @input="$v.registerUser.email.$touch()"
+          v-model.trim="registerUser.email">
         <div class="invalid-feedback" v-if="!$v.registerUser.email.required">
           {{ registerErrors.null }}
         </div>
@@ -28,8 +28,8 @@
           id="exampleInputPassword1"
           placeholder="Введите пароль"
           :class="{'is-invalid': $v.registerUser.password.$error}"
-          @blur="$v.registerUser.password.$touch()"
-          v-model="registerUser.password">
+          @input="$v.registerUser.password.$touch()"
+          v-model.trim="registerUser.password">
         <div class="invalid-feedback" v-if="!$v.registerUser.password.required">
           {{ registerErrors.null }}
         </div>
@@ -45,8 +45,8 @@
           id="exampleInputFirstName1"
           placeholder="Введите ваше имя"
           :class="{'is-invalid': $v.registerUser.firstName.$error}"
-          @blur="$v.registerUser.firstName.$touch()"
-          v-model="registerUser.firstName">
+          @input="$v.registerUser.firstName.$touch()"
+          v-model.trim="registerUser.firstName">
         <div class="invalid-feedback" v-if="!$v.registerUser.firstName.required">
           {{ registerErrors.null }}
         </div>
@@ -65,8 +65,8 @@
           id="exampleInputLastName1"
           placeholder="Введите вашу фамилию"
           :class="{'is-invalid': $v.registerUser.lastName.$error}"
-          @blur="$v.registerUser.lastName.$touch()"
-          v-model="registerUser.lastName">
+          @input="$v.registerUser.lastName.$touch()"
+          v-model.trim="registerUser.lastName">
         <div class="invalid-feedback" v-if="!$v.registerUser.lastName.required">
           {{ registerErrors.null }}
         </div>
@@ -85,8 +85,8 @@
           id="exampleInputNumber1"
           placeholder="Введите номер мобильного телефона"
           :class="{'is-invalid': $v.registerUser.number.$error}"
-          @blur="$v.registerUser.number.$touch()"
-          v-model="registerUser.number">
+          @input="$v.registerUser.number.$touch()"
+          v-model.trim="registerUser.number">
         <div class="invalid-feedback" v-if="!$v.registerUser.number.required">
           {{ registerErrors.null }}
         </div>
@@ -102,8 +102,8 @@
           id="exampleInputInn1"
           placeholder="Введдите ИНН"
           :class="{'is-invalid': $v.registerUser.inn.$error}"
-          @blur="$v.registerUser.inn.$touch()"
-          v-model="registerUser.inn">
+          @input="$v.registerUser.inn.$touch()"
+          v-model.trim="registerUser.inn">
         <div class="invalid-feedback" v-if="!$v.registerUser.inn.required">
           {{ registerErrors.null }}
         </div>
@@ -128,9 +128,13 @@
 
 <script>
 import { required, email, helpers, minLength, maxLength, } from 'vuelidate/lib/validators'
-import axios from 'axios'
+
+
 const alpha = helpers.regex('alpha', /^[a-zA-Zа-яёА-ЯЁ]*$/)
 const tele = helpers.regex('alpha', /^[0-9]*$/)
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
 export default {
   name: "AppRegistration",
   data () {
@@ -167,10 +171,28 @@ export default {
   },
   methods: {
     onSubmit () {
-      axios
-        .post('http://mansur.ideah.ru/api/v1/psychologist/registration', { 'name': this.registerUser.firstName, 'lastname': this.registerUser.lastName, 'email': this.registerUser.email, 'password': this.registerUser.password })
-        .then(response => {
-          console.log(this.registerUser)})
+      console.log(this.registerUser)
+      // let xhr = new XMLHttpRequest();
+      // let name = document.getElementById('exampleInputFirstName1').value,
+      //   lastname = document.getElementById('exampleInputLastName1').value,
+      //   email = document.getElementById('exampleInputEmail1').value,
+      //   password = document.getElementById('exampleInputPassword1').value;
+      //
+      // let body = '&name=' + name +
+      //   '&lastname=' + lastname +
+      //   '&email=' + email +
+      //   '&password=' + password;
+      //
+      // xhr.open("POST", 'http://mansur.ideah.ru/api/v1/psychologist/registration', true);
+      // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      //
+      // xhr.send(body);
+
+
+      this.axios
+        .post('https://vivazzi.pro/test-request/?par_1=foo&par_2=bar', { 'name': this.registerUser.firstName, 'lastname': this.registerUser.lastName, 'email': this.registerUser.email, 'password': this.registerUser.password})
+        .then((response) => {
+          console.log(response)})
         .catch(err => {console.error(err)})
     },
     accepted () {

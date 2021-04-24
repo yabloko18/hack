@@ -40,12 +40,11 @@
         <footer class="chat-footer">
           <div>
             <div class="container">
-              <div class="d-flex flex-nowrap flex-lg-wrap image-row">
-                <label>
+              <div class="d-flex flex-nowrap image-row">
+                <label class="d-none">
                   <input type="file" id="files" ref="files" accept="image/*" multiple v-on:change="handleFilesUpload()"/>
                 </label>
                 <div v-for="(file, key) in files" class="image d-flex flex-column">
-                  {{ file.name }}
                   <img class="preview" v-bind:ref="'image'+parseInt( key )"/>
                 </div>
               </div>
@@ -162,6 +161,8 @@ div.asd{
   width: 100%;
   height: auto;
   border-bottom: 1px solid #8E8E8E;
+  position: fixed;
+  z-index: 10;
   .image-container {
     width: 36px;
     height: 36px;
@@ -197,17 +198,28 @@ div.asd{
   }
 }
 .chat-body {
-  padding: 10px 0;
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
+  padding: 70px 0 120px 0;
+  position: relative;
   background-color: #E5E5E5;
   overflow-y: scroll;
+  z-index: 9;
+  @media (max-width: 998px) {
+    padding: 70px 0 80px 0;
+  }
+  .container {
+    height: auto;
+  }
 }
 .chat-footer {
   background: #F6F6F6;
   border-top: 1px solid #8E8E8E;
   padding: 15px 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 10;
   @media (max-width: 998px) {
     padding: 5px 0;
   }
@@ -247,8 +259,15 @@ div.asd{
   }
 }
 .image-row {
+  overflow-x: scroll;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  transform: translateY(-100%);
+  background-color: rgba(255,255,255,.4);
   @media (max-width: 998px) {
-    overflow-x: scroll;
     img {
       max-width: 150px;
     }
