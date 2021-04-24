@@ -6,14 +6,16 @@
       <section>
         <div class="container">
           <h1>Личный кабинет</h1>
-          <h3>{{ psychUser.firstName +' ' + psychUser.lastName }}</h3>
-          <p class="text-1">{{ 'ИНН - ' + psychUser.inn }}</p>
-          <p class="text-1">{{ 'Телефон - ' + psychUser.number }}</p>
+          <h3>{{ this.$store.state.psychologyUserInfo.info.name }}</h3>
+          <p class="text-1">{{ 'ID - ' + + this.$store.state.psychologyUserInfo.info.id }}</p>
+          <p class="text-1">{{ 'ИНН - ' + + this.$store.state.psychologyUserInfo.info.inn }}</p>
+          <p class="text-1">{{ 'Email - ' + this.$store.state.psychologyUserInfo.info.email }}</p>
+          <p class="text-1">{{ 'Телефон - ' + this.$store.state.psychologyUserInfo.info.phone }}</p>
           <transition name="button-anim">
-            <button class="button" @click="searchClient()" v-if="!psychUser.searchState">Поиск клиента</button>
+            <button class="button" @click="searchClient()" v-if="!searchState">Поиск клиента</button>
           </transition>
           <transition name="button-anim">
-            <button class="button button-search" v-if="psychUser.searchState" @click="searchClient()">Поиск клиента</button>
+            <button class="button button-search" v-if="searchState" @click="searchClient()">Поиск клиента</button>
           </transition>
         </div>
       </section>
@@ -26,31 +28,31 @@
 <script>
 import AppHeader from "@/components/AppHeader";
 import AppFooter from "@/components/AppFooter";
+import {mapActions} from 'vuex'
 
 export default {
   name: 'PsychologyUser',
   data () {
     return {
-      psychUser: {
-        firstName: 'Ivan',
-        lastName: 'Ivanov',
-        id: '00001',
-        inn: '111111111111',
-        searchState: false,
-        number: '79999999999'
-      }
+      searchState: false,
     }
   },
   methods: {
     searchClient () {
       console.log(1)
-      this.psychUser.searchState = !this.psychUser.searchState
-      console.log(this.psychUser.searchState)
-    }
+      this.searchState = !this.searchState
+      console.log(this.searchState)
+    },
+    ...mapActions([
+      'GET_INFO_FROM_API'
+    ])
   },
   components: {
     AppHeader,
     AppFooter
+  },
+  mounted() {
+    this.GET_INFO_FROM_API()
   }
 }
 </script>

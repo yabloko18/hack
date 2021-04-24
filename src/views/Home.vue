@@ -43,6 +43,7 @@
       <SectionHelp/>
       <SectionWork/>
       <SectionAbout/>
+<!--      <ModalWindowPay/>-->
     </main>
     <AppFooter/>
   </div>
@@ -54,6 +55,7 @@ import AppFooter from "@/components/AppFooter";
 import SectionWork from "@/components/SectionWork";
 import SectionHelp from "@/components/SectionHelp";
 import SectionAbout from "@/components/SectionAbout";
+import ModalWindowPay from "@/components/ModalWindowPay";
 
 export default {
   name: 'Home',
@@ -62,7 +64,8 @@ export default {
     AppFooter,
     SectionWork,
     SectionHelp,
-    SectionAbout
+    SectionAbout,
+    ModalWindowPay
   }
 }
 </script>
