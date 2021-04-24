@@ -1,6 +1,24 @@
 <template>
   <div class="app-body">
     <main class="content">
+      <div v-if="buttonState">
+        <div class="modal-window">
+          Мы нашли психолога для вас -
+          {{ this.$store.state.psychologyUserInfo.info.name }}
+
+          <button class="button" @click="buttonState = !buttonState">
+            Начать диалог
+          </button>
+        </div>
+        <div class="modal-window__bg"></div>
+      </div>
+      <div v-if="timeModalState">
+        <div class="modal-window">
+          К сожалению 10 минут бесплатной помощи закончились
+          Оплатите, чтобы продолжить
+        </div>
+        <div class="modal-window__bg"></div>
+      </div>
       <div class="chat position-relative d-flex flex-column">
         <header class="chat-header">
           <div class="container d-flex justify-content-between align-items-center">
@@ -13,10 +31,10 @@
             </div>
             <div class="col-8 col-md-10 d-flex flex-column">
               <div class="name">
-                <a href="">Анастасия Флюшина</a>
+                <a href="">{{ this.$store.state.psychologyUserInfo.info.name }}</a>
               </div>
               <small class="state">
-                печатает...
+                ваш психолог
               </small>
             </div>
             <div class="col-2 col-md-1  d-flex justify-content-end">
@@ -66,7 +84,7 @@
             <div class="col-2 col-md-1  d-flex justify-content-end">
               <div class="d-flex flex-column">
                 <div v-if="textarea">
-                  <button v-on:click="submitFiles()" class="chat-footer__img"><img src="img/chat/4.svg" alt=""></button>
+                  <button v-on:click="submitFiles ()" class="chat-footer__img"><img src="img/chat/4.svg" alt=""></button>
                 </div>
                 <div class="icon-container" v-else>
                   <a href=""><img src="img/chat/3.svg" alt=""></a>
@@ -83,6 +101,7 @@
 <script>
 import Massage from '@/components/Massage'
 import FileChange from "@/components/FileChange";
+import {mapActions} from "vuex";
 
 export default {
   name: 'Chat',
@@ -90,19 +109,46 @@ export default {
   data () {
     return {
       massages: [
-        { id: 1, user: 'A', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam dolores magnam nemo neque odit optio sequi temporibus? Animi aspernatur aut beatae commodi excepturi itaque iusto labore laudantium nesciunt nihil nostrum odit quas sit, temporibus, ut? Dignissimos error excepturi libero placeat rem! Architecto assumenda aut eum eveniet excepturi, hic incidunt magnam molestias officiis perferendis saepe totam, vero? Accusantium atque consequuntur debitis earum eos esse, explicabo fuga fugit harum ipsa maxime minus nam nulla perspiciatis, quae, quam repellendus unde. Atque eum fugiat laboriosam numquam officia quia quisquam quos sapiente vel! Aperiam, debitis fuga illum magnam magni non porro quidem quos veritatis!', time: '11:30' },
-        { id: 2, user: 'A', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum, fugit!', time: '11:34' },
-        { id: 3, user: 'B', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad beatae corporis eius harum nisi pariatur provident sapiente sequi, soluta voluptatum. Amet, blanditiis dolorem dolores dolorum ea esse fugit in magni maxime quasi ratione totam ullam voluptas? Aliquid beatae dolores quo tempora tempore. Cumque est iure quis sed voluptatum. Commodi, obcaecati.', time: '11:36' },
-        { id: 4, user: 'B', text: 'Lorem ipsum dolor.', time: '11:40' },
-        { id: 5, user: 'B', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam dolores magnam nemo neque odit optio sequi temporibus? Animi aspernatur aut beatae commodi excepturi itaque iusto labore laudantium nesciunt nihil nostrum odit quas sit, temporibus, ut? Dignissimos error excepturi libero placeat rem! Architecto assumenda aut eum eveniet excepturi, hic incidunt magnam molestias officiis perferendis saepe totam, vero? Accusantium atque consequuntur debitis earum eos esse, explicabo fuga fugit harum ipsa maxime minus nam nulla perspiciatis, quae, quam repellendus unde. Atque eum fugiat laboriosam numquam officia quia quisquam quos sapiente vel! Aperiam, debitis fuga illum magnam magni non porro quidem quos veritatis!', time: '11:44' },
-        { id: 6, user: 'A', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid beatae consequatur iste iure laboriosam magni recusandae unde. Atque cupiditate ex fugiat impedit nostrum officiis! Aliquam assumenda inventore placeat quae qui.', time: '11:53' }
+        { id: 1, userId: '', img: '', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam dolores magnam nemo neque odit optio sequi temporibus? Animi aspernatur aut beatae commodi excepturi itaque iusto labore laudantium nesciunt nihil nostrum odit quas sit, temporibus, ut? Dignissimos error excepturi libero placeat rem! Architecto assumenda aut eum eveniet excepturi, hic incidunt magnam molestias officiis perferendis saepe totam, vero? Accusantium atque consequuntur debitis earum eos esse, explicabo fuga fugit harum ipsa maxime minus nam nulla perspiciatis, quae, quam repellendus unde. Atque eum fugiat laboriosam numquam officia quia quisquam quos sapiente vel! Aperiam, debitis fuga illum magnam magni non porro quidem quos veritatis!', time: '11:30' },
+        { id: 2, userId: '', img: '', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum, fugit!', time: '11:34' },
+        { id: 3, userId: '', img: '', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad beatae corporis eius harum nisi pariatur provident sapiente sequi, soluta voluptatum. Amet, blanditiis dolorem dolores dolorum ea esse fugit in magni maxime quasi ratione totam ullam voluptas? Aliquid beatae dolores quo tempora tempore. Cumque est iure quis sed voluptatum. Commodi, obcaecati.', time: '11:36' },
+        { id: 4, userId: '', img: '', text: 'Lorem ipsum dolor.', time: '11:40' },
+        { id: 5, userId: '', img: '', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam dolores magnam nemo neque odit optio sequi temporibus? Animi aspernatur aut beatae commodi excepturi itaque iusto labore laudantium nesciunt nihil nostrum odit quas sit, temporibus, ut? Dignissimos error excepturi libero placeat rem! Architecto assumenda aut eum eveniet excepturi, hic incidunt magnam molestias officiis perferendis saepe totam, vero? Accusantium atque consequuntur debitis earum eos esse, explicabo fuga fugit harum ipsa maxime minus nam nulla perspiciatis, quae, quam repellendus unde. Atque eum fugiat laboriosam numquam officia quia quisquam quos sapiente vel! Aperiam, debitis fuga illum magnam magni non porro quidem quos veritatis!', time: '11:44' },
+        { id: 6, userId: '', img: '', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid beatae consequatur iste iure laboriosam magni recusandae unde. Atque cupiditate ex fugiat impedit nostrum officiis! Aliquam assumenda inventore placeat quae qui.', time: '11:53' }
       ],
       files: [],
       textarea: [],
-      value: []
+      value: [],
+      buttonState: true,
+      currentTime: 5,
+      timer: null,
+      timeModalState: false
+    }
+  },
+  mounted() {
+    this.GET_INFO_FROM_API()
+    this.startTimer()
+  },
+  destroyed() {
+    this.stopTimer()
+  },
+  watch: {
+    currentTime(time) {
+      if (time === 0) {
+        this.stopTimer()
+      }
     }
   },
   methods: {
+    startTimer() {
+      this.timer = setInterval(() => {
+        this.currentTime--
+      }, 1000)
+    },
+    stopTimer() {
+      this.timeModalState = true
+      clearTimeout(this.timer)
+    },
     addFiles(){
       this.$refs.files.click();
     },
@@ -130,7 +176,10 @@ export default {
           reader.readAsDataURL( this.files[i] );
         }
       }
-    }
+    },
+    ...mapActions([
+      'GET_INFO_FROM_API'
+    ])
   }
 }
 </script>
