@@ -1,5 +1,5 @@
 <template>
-  <li class="col-12 massage-body_y">
+  <li class="col-12" v-bind:class="{ 'massage-body_y': !massage.user }">
     <div class="massage-body d-inline-flex flex-column">
       <p>{{ massage.text }}</p>
       <small class="d-flex justify-content-end"> {{ massage.time }}</small>

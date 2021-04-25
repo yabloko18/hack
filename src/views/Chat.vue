@@ -84,7 +84,7 @@
             <div class="col-2 col-md-1  d-flex justify-content-end">
               <div class="d-flex flex-column">
                 <div v-if="textarea">
-                  <button v-on:click="submitFiles ()" class="chat-footer__img"><img src="img/chat/4.svg" alt=""></button>
+                  <button v-on:click="sendMassage ()" class="chat-footer__img"><img src="img/chat/4.svg" alt=""></button>
                 </div>
                 <div class="icon-container" v-else>
                   <a href=""><img src="img/chat/3.svg" alt=""></a>
@@ -109,18 +109,13 @@ export default {
   data () {
     return {
       massages: [
-        { id: 1, userId: '', img: '', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam dolores magnam nemo neque odit optio sequi temporibus? Animi aspernatur aut beatae commodi excepturi itaque iusto labore laudantium nesciunt nihil nostrum odit quas sit, temporibus, ut? Dignissimos error excepturi libero placeat rem! Architecto assumenda aut eum eveniet excepturi, hic incidunt magnam molestias officiis perferendis saepe totam, vero? Accusantium atque consequuntur debitis earum eos esse, explicabo fuga fugit harum ipsa maxime minus nam nulla perspiciatis, quae, quam repellendus unde. Atque eum fugiat laboriosam numquam officia quia quisquam quos sapiente vel! Aperiam, debitis fuga illum magnam magni non porro quidem quos veritatis!', time: '11:30' },
-        { id: 2, userId: '', img: '', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum, fugit!', time: '11:34' },
-        { id: 3, userId: '', img: '', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad beatae corporis eius harum nisi pariatur provident sapiente sequi, soluta voluptatum. Amet, blanditiis dolorem dolores dolorum ea esse fugit in magni maxime quasi ratione totam ullam voluptas? Aliquid beatae dolores quo tempora tempore. Cumque est iure quis sed voluptatum. Commodi, obcaecati.', time: '11:36' },
-        { id: 4, userId: '', img: '', text: 'Lorem ipsum dolor.', time: '11:40' },
-        { id: 5, userId: '', img: '', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam dolores magnam nemo neque odit optio sequi temporibus? Animi aspernatur aut beatae commodi excepturi itaque iusto labore laudantium nesciunt nihil nostrum odit quas sit, temporibus, ut? Dignissimos error excepturi libero placeat rem! Architecto assumenda aut eum eveniet excepturi, hic incidunt magnam molestias officiis perferendis saepe totam, vero? Accusantium atque consequuntur debitis earum eos esse, explicabo fuga fugit harum ipsa maxime minus nam nulla perspiciatis, quae, quam repellendus unde. Atque eum fugiat laboriosam numquam officia quia quisquam quos sapiente vel! Aperiam, debitis fuga illum magnam magni non porro quidem quos veritatis!', time: '11:44' },
-        { id: 6, userId: '', img: '', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid beatae consequatur iste iure laboriosam magni recusandae unde. Atque cupiditate ex fugiat impedit nostrum officiis! Aliquam assumenda inventore placeat quae qui.', time: '11:53' }
       ],
+      massage: { id: '', user: '', img: '', text: '', time: ''},
       files: [],
       textarea: [],
       value: [],
       buttonState: true,
-      currentTime: 5,
+      currentTime: 60,
       timer: null,
       timeModalState: false
     }
@@ -176,6 +171,15 @@ export default {
           reader.readAsDataURL( this.files[i] );
         }
       }
+    },
+    sendMassage () {
+      this.massage.img = this.files
+      this.massage.text = this.textarea
+      let oneMassage = Object.assign({}, this.massage);
+      this.massages.push(oneMassage)
+      console.log(this.massages)
+      this.textarea = ''
+      this.files = ''
     },
     ...mapActions([
       'GET_INFO_FROM_API'
@@ -252,6 +256,9 @@ div.asd{
   background-color: #E5E5E5;
   overflow-y: scroll;
   z-index: 9;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
   @media (max-width: 998px) {
     padding: 70px 0 80px 0;
   }
